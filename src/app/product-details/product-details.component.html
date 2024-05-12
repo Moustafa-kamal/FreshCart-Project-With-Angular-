@@ -1,0 +1,46 @@
+<div class="row py-4 align-items-center">
+    <div class="col-md-4">
+
+        <owl-carousel-o [options]="customOptions">
+
+            <ng-container *ngFor="let img of productDetails?.images">
+              <ng-template carouselSlide >
+                <img [src]="img">
+              </ng-template>
+            </ng-container>
+        
+          </owl-carousel-o>
+        <!-- <img class="w-100" [src]="productDetails?.imageCover"/> -->
+    </div>
+
+    <div class="col-md-8">
+        <h2 class="h4 fw-bolder mb-2">{{productDetails?.title}}</h2>
+        <p class="text-muted p-3">{{productDetails?.description}}</p>
+
+        <div class="d-flex align-items-center justify-content-between">
+            <span *ngIf="!isSpin" class="text-muted fw-bold font-sm">{{productDetails?.price}} EGP</span>
+           <div>
+            <i *ngIf="!isSpin" class="fas fa-star rating-color"></i>
+            <span class="text-muted fw-bold font-sm">{{productDetails?.ratingsAverage}}</span>
+           </div>
+        </div>
+
+        <button  *ngIf="!isSpin" (click)="addToCart(productId)" (click)="showSuccess(productDetails?.title?.split(' ')?.splice(0,2)?.join(' ') + ' added successfully to your cart','congratulation!')" class="btn bg-main text-white w-100 my-2">
+          <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+          <span *ngIf="!isLoading"> + Add</span>
+        </button>
+
+
+
+    </div>
+</div>
+
+
+
+
+
+<div *ngIf="isSpin" class="landing align-items-center justify-content-center">
+  <span class="loader">
+    <i class="fas fa-cart-shopping fa-6x text-main fa-bounce"></i>
+  </span>
+</div>

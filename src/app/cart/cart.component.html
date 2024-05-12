@@ -1,0 +1,123 @@
+ 
+
+
+<div *ngIf="cartDetails && cartDetailsProducts " class="bg-main-light p-4 my-4">
+
+
+    <div class="d-flex justify-content-between">
+        <h3 class="mb-4">Shop Cart</h3>
+        <button (click)="removeAllCart()" 
+        (click)=" showError('Your All Cart Removed successfully ','Done!')"
+         class="btn mb-4 text-danger border-1 border-danger">
+            <i *ngIf="isSpinner" class="fas fa-spinner fa-spin"></i>
+            <span *ngIf="!isSpinner">
+                <i class="fa-regular fa-trash-can"></i> Remove The Cart
+            </span>
+        </button>
+    </div>
+
+
+    <h6 class="text-main">Total Price : {{cartDetails.totalCartPrice}} EGP</h6>
+
+    <div *ngFor="let product of cartDetailsProducts  " class="row border-bottom py-3 align-items-center">
+        <div class="col-md-1">
+            <img class="w-100" [src]="product.product.imageCover" />
+        </div>
+        <div class="col-md-11 d-flex justify-content-between">
+            <div>
+                <h6>{{product.product.title.split(' ').splice(0,15).join(' ')}}</h6>
+                <h6 class="text-main"> Price : {{product.price}} EGP</h6>
+
+                <button (click)=" removeItem(product.product._id)"  (click)=" showError(product.product.title.split(' ').splice(0,3).join(' ') + ' Removed successfully From your cart','Done!')" class="btn m-0 p-0">
+
+                    <i *ngIf="isLodding" class="fas fa-spinner fa-spin text-danger"></i>
+                    <span *ngIf="! isLodding" class="text-danger">
+                        <i class="fa-regular fa-trash-can "></i> Remove Product
+                    </span>
+
+                </button>
+            </div>
+            <div>
+
+                <button (click)=" updateItemCount(product.product._id,product.count+1)"  (click)="showSuccess(  product.product.title.split(' ').splice(0,3).join(' ') + ' Count Updated Successfully To '+ (product.count+1),'Done!')"  class="btn border-main btn-sm">
+                    <i *ngIf="islodder" class="fas fa-spinner fa-spin text-main"></i>
+                    <span *ngIf="!islodder">+</span>
+                </button>
+
+                <span class="mx-2">{{product.count}}</span>
+
+                <button (click)=" updateItemCount(product.product._id,product.count-1)"
+                (click)="showSuccess(  product.product.title.split(' ').splice(0,3).join(' ') + ' Count Updated Successfully To '+ (product.count-1),'Done!')" 
+                class="btn border-main btn-sm">
+                    <i *ngIf="islodder" class="fas fa-spinner fa-spin text-main"></i>
+                    <span *ngIf="!islodder">-</span>
+
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="my-4 d-flex flex-column">
+        <div (click)="clickOnlinePayment()" class="form-check text-main ">
+            <input class="form-check-input cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+            <label class="form-check-label cursor-pointer" for="flexRadioDefault1">
+                Online Payment
+            </label>
+          </div>
+          <div (click)="clickOrderNow()"  class="form-check text-main">
+            <input class="form-check-input cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+            <label class="form-check-label cursor-pointer" for="flexRadioDefault2">
+                Order Now
+            </label>
+          </div>
+       
+    
+    </div>
+
+
+  <div class="d-flex">
+    <button id="btn1" class="btn bg-main  my-3" >
+       <a [routerLink]="['/checkout',cartDetails._id]" class="text-white">
+        Online Payment
+        <i class="fa-brands fa-cc-visa"></i>
+       </a>
+    </button>
+    <button id="btn2" class="btn bg-main text-white my-3 d-none" >
+       <a [routerLink]="['/cashorder',cartDetails._id]"  class="text-white">
+        Order Now
+       </a>
+    </button>
+  </div>
+
+
+</div>
+
+
+<!-- <ng-template #cartDelete> -->
+    <div  class="d-flex flex-column justify-content-center align-items-center my-5 d-none" id="cartDelete">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <h3 class="text-main fw-bolder me-2">Your Cart is Empty</h3>
+            <i class="fa-regular fa-face-frown text-main fs-3"></i>
+        </div>
+        <h5 class="text-main fw-bolder">Shop Now</h5>
+    
+    </div>
+<!-- </ng-template> -->
+
+
+
+
+<div *ngIf="isSpin " class="landing align-items-center justify-content-center">
+    <span class="loader">
+      <i class="fas fa-cart-shopping fa-6x text-main fa-bounce"></i>
+    </span>
+  </div>
+
+
+
+
+
+  

@@ -1,0 +1,19 @@
+
+<h2 *ngIf="!isSpin" class="text-main pb-3 pt-5 fw-bold">All Categories</h2>
+
+<div *ngIf="!isSpin" class="row py-4">
+    <div *ngFor="let category of categoriesItem" class="col-xl-3 col-lg-4 col-md-6 mb-5 product cursor-pointer">
+        <a [routerLink]="['/subcategories',category._id]">
+        <img height="250"  [src]="category.image" [alt]="category.name" class="w-100">
+        <h4 class="h4 fw-bolder text-center mt-3">{{category.name}}</h4>
+    </a>
+    </div>
+</div>
+
+
+
+<div *ngIf="isSpin" class="landing align-items-center justify-content-center">
+    <span class="loader">
+        <i class="fas fa-cart-shopping fa-6x text-main fa-bounce"></i>
+    </span>
+</div>

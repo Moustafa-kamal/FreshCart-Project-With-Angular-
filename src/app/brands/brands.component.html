@@ -1,0 +1,17 @@
+<div *ngIf="!isSpin" class="row py-4">
+    <div class="col-xl-3 col-lg-4 col-md-6 d-flex align-items-center justify-content-center pb-5">
+            <h1 class="text-main  fw-bold">Our <br/> Brands</h1>
+    </div>
+    <div *ngFor="let brand of brandsItems" class="col-xl-3 col-lg-4 col-md-6 mb-5 product">
+        <img [src]="brand.image" [alt]="brand.name" class="w-100">
+        <h4 class="h4 fw-bolder text-center ">{{brand.name}}</h4>
+    </div>
+</div>
+
+
+
+<div *ngIf="isSpin" class="landing align-items-center justify-content-center">
+    <span class="loader">
+        <i class="fas fa-cart-shopping fa-6x text-main fa-bounce"></i>
+    </span>
+</div>

@@ -1,0 +1,54 @@
+
+
+
+<div class="w-50 mx-auto my-5">
+    <form [formGroup]="shippingAddress" (ngSubmit)="handleSubmit(shippingAddress)">
+
+    <label for="details">Details: </label>
+    <input type="text" id="details" class="form-control mb-2" formControlName="details"/>
+
+
+   
+    <div *ngIf="shippingAddress.get('details')?.errors && shippingAddress.get('details')?.touched" class="alert alert-danger">
+        <p *ngIf="shippingAddress.get('details')?.getError('pattern')" class="m-0">Enter Your Details from 5 to 20 upperCase letters or smallCase letters or numbers </p>
+        <p *ngIf="shippingAddress.get('details')?.getError('required')" class="m-0"> Details is Required</p>
+    </div>
+
+
+ 
+    
+    <label for="phone">Phone: </label>
+    <input type="tel" id="phone" class="form-control mb-2" formControlName="phone"/>
+
+
+
+    <div *ngIf="shippingAddress.get('phone')?.errors && shippingAddress.get('phone')?.touched" class="alert alert-danger">
+        <p *ngIf="shippingAddress.get('phone')?.getError('pattern')" class="m-0">Enter a valid Egyption phone for
+            example 01286735494</p>
+        <p *ngIf="shippingAddress.get('phone')?.getError('required')" class="m-0">Phone is Required</p>
+    </div>
+
+
+
+    
+    <label for="city">City: </label>
+    <input type="text" id="city" class="form-control mb-2" formControlName="city"/>
+
+
+
+    <div *ngIf="shippingAddress.get('city')?.errors && shippingAddress.get('city')?.touched" class="alert alert-danger">
+        <p *ngIf="shippingAddress.get('city')?.getError('pattern')" class="m-0">Enter Your City from 3 to 15 upperCase letters or smallCase letters  </p>
+        <p *ngIf="shippingAddress.get('city')?.getError('required')" class="m-0"> City is Required</p>
+    </div>
+    
+
+
+    <button [disabled]="shippingAddress.invalid" class="btn bg-main text-white" type="submit">
+
+        <i *ngIf="isLodding" class="fas fa-spinner fa-spin text-white"></i>
+        <span *ngIf="!isLodding">Pay</span>
+
+    </button>
+    </form>
+    </div>
+    

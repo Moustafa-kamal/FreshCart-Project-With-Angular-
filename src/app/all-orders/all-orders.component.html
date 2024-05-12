@@ -1,0 +1,27 @@
+
+
+<h3 class="bg-main text-white orders p-2 mx-auto my-5 rounded">Your Orders</h3>
+
+<div class="bg-main-light p-4 my-4 w-75 mx-auto">
+
+      <h5 class="text-main mb-5 mt-3">Total Price : {{ totalOrdersPrice?.totalOrderPrice}} EGP</h5>
+
+    <div *ngFor="let order of cartOrders[0]?.cartItems  " class="row border-bottom py-3 align-items-center">
+
+        <div class="col-md-2">
+            <img class="w-100" [src]="order.product.imageCover" />
+        </div>
+        <div class="col-md-10">
+
+            <h6 class="text-main mb-3">Title : {{order.product.title.split(' ').splice(0,15).join(' ')}}</h6>
+
+            <h6 class="text-main mb-3"> Count : {{order.count}}</h6>
+
+            <h6 class="text-main mb-3"> Price : {{order.price}} EGP</h6>
+
+        </div>
+
+    </div>
+
+
+</div>

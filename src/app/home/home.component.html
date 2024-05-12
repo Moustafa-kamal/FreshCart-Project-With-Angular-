@@ -1,0 +1,58 @@
+
+<app-main-slider  *ngIf="!isSpin"></app-main-slider>
+<app-category-slider  *ngIf="!isSpin"></app-category-slider>
+<div class="row py-4">
+
+   <div  *ngIf="!isSpin">
+    <input [(ngModel)]="searchTerm" type="text" class="form-control w-75 mx-auto my-4 " placeholder="Search By Name ..."/>
+
+   </div>
+
+
+  
+
+    <div *ngFor="let product of products|search:searchTerm" class="col-xl-2 col-lg-3 col-md-6 cursor-pointer">
+        
+        <div class="product px-2 py-4">
+           <a [routerLink]="['/productdetails',product._id]">
+
+            <img class="w-100" src="{{product.imageCover}}" />
+            <span class="text-main fw-bold font-sm">{{product.category.name}}</span>
+            <h3 class="h6 fw-bolder">{{product.title.split(' ').splice(0,2).join(' ')}}</h3>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="text-muted fw-bold font-sm">{{product.price}} EGP</span>
+               <div>
+                <i class="fas fa-star rating-color"></i>
+                <span class="text-muted fw-bold font-sm">{{product.ratingsAverage}}</span>
+               </div>
+            </div>
+           </a>
+
+           <button (click)="addToCart(product._id)" (click)="showSuccess(product.title.split(' ').splice(0,2).join(' ') + ' added successfully to your cart','congratulation!')" class="btn bg-main text-white w-100 my-2">
+            <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+            <span *ngIf="!isLoading"> + Add</span>
+        </button>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div *ngIf="isSpin" class="landing align-items-center justify-content-center">
+    <span class="loader">
+        <i class="fas fa-cart-shopping fa-6x text-main fa-bounce"></i>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+

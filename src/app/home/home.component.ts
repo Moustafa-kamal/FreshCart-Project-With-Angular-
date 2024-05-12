@@ -1,0 +1,52 @@
+import { Component, OnInit, importProvidersFrom } from '@angular/core';
+import { ProductsService } from '../products.service';
+import { Product } from '../product';
+import { CartService } from '../cart.service';
+import { ToastrService} from 'ngx-toastr'
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit {
+  constructor(private _ProductsService: ProductsService, private _CartService: CartService, private _ToastrService: ToastrService) {
+  }
+  searchTerm: string = ''
+  products: Product[] = []
+  isLoading: boolean = false;
+  isSpin: boolean = false;
+  ngOnInit(): void {
+    this.isSpin = true
+    this._ProductsService.getProducts().subscribe({
+      next: (response) => {
+        this.products = response.data
+        console.log(response.data)
+        this._ProductsService.footer.emit()
+        this.isSpin = false
+      }
+    })
+
+
+  }
+
+  addToCart(productId: string) {
+    this.isLoading = true;
+    this._CartService.addToCart(productId).subscribe({
+      next: (response) => {
+        console.log(response)
+        this._CartService.numberOFCartItems.next(response.numOfCartItems)
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.log(err)
+        this.isLoading = false;
+      }
+
+    })
+  }
+
+
+  showSuccess(message: string, title: string) {
+    this._ToastrService.success(message, title);
+  }
+}
